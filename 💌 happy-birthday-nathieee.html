@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Nathieee 🌷</title>
+    <style>
+        /* ===== GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            overflow-x: hidden;
+            background: radial-gradient(ellipse at bottom, #0b0b1f 0%, #000000 70%);
+            min-height: 100vh;
+            position: relative;
+            cursor: none;
+        }
+
+        /* ===== NIGHT SKY & STARS ===== */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* ===== TULIPS - 4 TULIPS ON SIDES ===== */
+        .tulips {
+            position: fixed;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 70vh;
+            z-index: 8;
+            pointer-events: none;
+            transform: translateY(-50%);
+        }
+
+        .tulip {
+            position: absolute;
+            animation: sway 6s ease-in-out infinite;
+        }
+
+        /* LEFT SIDE - 2 TULIPS */
+        .tulip:nth-child(1) { 
+            left: 3%; 
+            top: 20%; 
+            animation-delay: 0s; 
+        }
+
+        .tulip:nth-child(2) { 
+            left: 2%; 
+            top: 60%; 
+            animation-delay: -1.5s; 
+        }
+
+        /* RIGHT SIDE - 2 TULIPS */
+        .tulip:nth-child(3) { 
+            right: 3%; 
+            top: 25%; 
+            animation-delay: -3s; 
+        }
+
+        .tulip:nth-child(4) { 
+            right: 2%; 
+            top: 65%; 
+            animation-delay: -4.5s; 
+        }
+
+        .tulip-stem {
+            position: absolute;
+            width: 8px;
+            background: linear-gradient(to top, #2d5016, #4a7c59);
+            border-radius: 4px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .tulip-petal {
+            position: absolute;
+            width: 55px;
+            height: 75px;
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 50%, #c71585 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 
+                0 0 20px rgba(255, 105, 180, 0.6),
+                inset 0 2px 10px rgba(255, 255, 255, 0.3);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        /* Different sizes for variety */
+        .tulip:nth-child(1) .tulip-petal { width: 65px; height: 85px; }
+        .tulip:nth-child(2) .tulip-petal { width: 60px; height: 80px; }
+        .tulip:nth-child(3) .tulip-petal { width: 70px; height: 90px; }
+        .tulip:nth-child(4) .tulip-petal { width: 58px; height: 78px; }
+
+        .tulip-petal:before,
+        .tulip-petal:after {
+            content: '';
+            position: absolute;
+            background: inherit;
+            border-radius: inherit;
+            top: 20%;
+            width: 70%;
+            height: 70%;
+        }
+
+        .tulip-petal:before { left: -25%; transform: rotate(-20deg); }
+        .tulip-petal:after { right: -25%; transform: rotate(20deg); }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 20px rgba(255, 105, 180, 0.6), inset 0 2px 10px rgba(255, 255, 255, 0.3); }
+            100% { box-shadow: 0 0 40px rgba(255, 105, 180, 0.9), inset 0 4px 20px rgba(255, 255, 255, 0.5); }
+        }
+
+        /* ===== SECTIONS - HIGHER Z-INDEX ===== */
+        .section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 1s ease-in-out;
+            text-align: center;
+            padding: 40px 60px; /* More padding from sides */
+            z-index: 10;
+        }
+
+        .section.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ===== PASSWORD SCREEN ===== */
+        .password-screen {
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+        }
+
+        .password-input {
+            width: 300px;
+            max-width: 90vw;
+            padding: 15px 20px;
+            font-size: 18px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 105, 180, 0.5);
+            border-radius: 50px;
+            color: white;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #ff69b4;
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
+        }
+
+        .unlock-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .unlock-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
+        }
+
+        /* ===== ENVELOPE ANIMATION ===== */
+        .envelope {
+            width: 300px;
+            height: 200px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            z-index: 12;
+            margin: 20px 0;
+        }
+
+        .envelope:hover {
+            transform: scale(1.05);
+        }
+
+        .envelope-body {
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(145deg, #ffdbac, #f4b084);
+            position: absolute;
+            bottom: 0;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .envelope-flap {
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(145deg, #ffdbac, #f4b084);
+            position: absolute;
+            top: 0;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform-origin: bottom;
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(-180deg);
+        }
+
+        .envelope-letter {
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            right: 10%;
+            background: linear-gradient(145deg, #fff8e1, #f5e6b2);
+            height: 60%;
+            border-radius: 10px;
+            opacity: 0;
+            transform: translateY(20px) scale(0.8);
+            transition: all 0.6s ease 0.4s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .envelope.open .envelope-letter {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* ===== MESSAGE TEXT - PERFECT READABILITY ===== */
+        .message-text {
+            max-width: 650px; /* Perfect center width */
+            max-height: 65vh;
+            overflow-y: auto;
+            font-size: 22px;
+            line-height: 1.8;
+            color: #f8f8ff;
+            text-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+            margin: 20px 0;
+            padding: 30px 40px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            border: 2px solid rgba(255, 105, 180, 0.4);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .message-text::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .message-text::-webkit-scrollbar-track {
+            background: rgba(255,105,180,0.1);
+            border-radius: 10px;
+        }
+
+        .message-text::-webkit-scrollbar-thumb {
+            background: rgba(255,105,180,0.6);
+            border-radius: 10px;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 105, 180, 0.5) 0%, rgba(255, 20, 147, 0.5) 100%);
+            padding: 10px 25px;
+            border-radius: 30px;
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.5);
+            font-weight: bold;
+            display: inline-block;
+            margin: 5px 0;
+        }
+
+        /* ===== MUSIC CONTROL ===== */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 105, 180, 0.5);
+            border-radius: 50px;
+            padding: 10px 15px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .music-control:hover {
+            background: rgba(255, 105, 180, 0.2);
+            border-color: #ff69b4;
+        }
+
+        .music-control.playing {
+            background: rgba(255, 105, 180, 0.3);
+        }
+
+        /* ===== NAVIGATION BUTTONS ===== */
+        .nav-btn {
+            padding: 15px 40px;
+            background: linear-gradient(45deg, rgba(255, 105, 180, 0.9), rgba(255, 20, 147, 0.9));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 20px;
+            transition: all 0.3s ease;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 12;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.5);
+        }
+
+        /* ===== FLOATING PETALS ===== */
+        .petals {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .petal {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle at 30% 30%, #ff69b4, #ff1493);
+            border-radius: 50% 0 50% 0;
+            opacity: 0.7;
+            animation: float 15s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===== RESPONSIVE - PERFECT ON MOBILE ===== */
+        @media (max-width: 768px) {
+            .tulips { height: 55vh; }
+            .tulip { transform: scale(0.8); }
+            .tulip:nth-child(1) { left: 1%; top: 15%; }
+            .tulip:nth-child(2) { left: 0%; top: 55%; }
+            .tulip:nth-child(3) { right: 1%; top: 20%; }
+            .tulip:nth-child(4) { right: 0%; top: 60%; }
+            .section { padding: 30px 40px; }
+            .message-text { 
+                font-size: 18px; 
+                line-height: 1.6; 
+                max-width: 90vw;
+                padding: 25px 30px;
+            }
+            .envelope { width: 250px; height: 160px; }
+        }
+
+        @media (max-width: 480px) {
+            .tulips { height: 45vh; }
+            .tulip { transform: scale(0.6); }
+            .tulip:nth-child(1) { left: 0%; top: 10%; }
+            .tulip:nth-child(2) { left: -1%; top: 50%; }
+            .tulip:nth-child(3) { right: 0%; top: 15%; }
+            .tulip:nth-child(4) { right: -1%; top: 55%; }
+            .message-text { font-size: 16px; padding: 20px 25px; }
+        }
+
+        /* ===== CUSTOM CURSOR ===== */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, rgba(255,105,180,0.8), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- MUSIC CONTROL -->
+    <div class="music-control" id="musicControl" title="Toggle Music">
+        🎵
+    </div>
+
+    <!-- STARS BACKGROUND -->
+    <div class="stars" id="stars"></div>
+
+    <!-- FLOATING PETALS -->
+    <div class="petals" id="petals"></div>
+
+    <!-- 4 TULIPS - PERFECTLY POSITIONED ON SIDES -->
+    <div class="tulips">
+        <!-- LEFT TOP TULIP -->
+        <div class="tulip" style="height: 520px;">
+            <div class="tulip-stem" style="height: 420px;"></div>
+            <div class="tulip-petal"></div>
+        </div>
+        
+        <!-- LEFT BOTTOM TULIP -->
+        <div class="tulip" style="height: 480px;">
+            <div class="tulip-stem" style="height: 380px;"></div>
+            <div class="tulip-petal"></div>
+        </div>
+        
+        <!-- RIGHT TOP TULIP -->
+        <div class="tulip" style="height: 550px;">
+            <div class="tulip-stem" style="height: 450px;"></div>
+            <div class="tulip-petal"></div>
+        </div>
+        
+        <!-- RIGHT BOTTOM TULIP -->
+        <div class="tulip" style="height: 500px;">
+            <div class="tulip-stem" style="height: 400px;"></div>
+            <div class="tulip-petal"></div>
+        </div>
+    </div>
+
+    <!-- SECTIONS -->
+    <!-- 1. PASSWORD SCREEN -->
+    <section class="section active password-screen" data-section="1">
+        <h1 style="font-size: 3em; color: #ff69b4; text-shadow: 0 0 30px #ff69b4; margin-bottom: 30px; animation: glow 2s ease-in-out infinite alternate;">🌷 Special Gift for Nathieee 🌷</h1>
+        <p style="color: #fff; font-size: 1.2em; margin-bottom: 40px; text-shadow: 0 0 10px rgba(255,255,255,0.5);">Enter the secret code to unlock your birthday surprise...</p>
+        <input type="password" class="password-input" id="passwordInput" placeholder="Type here..." maxlength="12">
+        <br>
+        <button class="unlock-btn" onclick="checkPassword()">✨ UNLOCK ✨</button>
+        <p style="color: #ff69b4; margin-top: 20px; font-size: 0.9em;">Hint: It's what today stands for! 😘</p>
+    </section>
+
+    <!-- 2. ENVELOPE SCREEN -->
+    <section class="section" data-section="2">
+        <h2 style="font-size: 2.5em; color: #ff69b4; margin-bottom: 40px; text-shadow: 0 0 20px #ff69b4;">Click the envelope to read your letter 💌</h2>
+        <div class="envelope" id="envelope" onclick="openEnvelope()">
+            <div class="envelope-body"></div>
+            <div class="envelope-flap"></div>
+            <div class="envelope-letter">
+                <div style="padding: 30px; font-size: 1.1em; color: #8b4513; line-height: 1.6;">
+                    A special message just for you... 💕
+                </div>
+            </div>
+        </div>
+        <button class="nav-btn" id="nextBtn2" onclick="nextSection()" style="display: none;">Continue Reading →</button>
+    </section>
+
+    <!-- 3-8. MAIN MESSAGES & 9. FINAL - SAME AS BEFORE -->
+    <!-- [All message sections remain exactly the same - just showing structure] -->
+    <section class="section" data-section="3">
+        <div class="message-text">
+            <span class="highlight">Happy birthday Nathieee🎉🎂</span><br><br>
+            Today is such a special day, and I really hope it brings you so much happiness, peace, and love. 
+            I am genuinely thankful that you were born, because somehow, in a very unexpected way, our paths crossed.
+        </div>
+        <button class="nav-btn" onclick="nextSection()">Next →</button>
+    </section>
+
+    <section class="section" data-section="4">
+        <div class="message-text">
+            Who would have thought that a simple game like ML would lead me to meeting someone as <span class="highlight">amazing as you</span>? 
+            From random matches to meaningful conversations, everything just slowly turned into something I now truly value.
+        </div>
+        <button class="nav-btn" onclick="nextSection()">Next →</button>
+    </section>
+
+    <section class="section" data-section="5">
+        <div class="message-text">
+            In just a month and a half, we have shared so many stories, laughs, and even some of the deeper parts of our lives 
+            <span class="highlight">(even some freaky things we did😏) HAHAHA</span>. 
+            But honestly, I appreciate every moment we spend talking, whether it is about simple things or serious ones.
+        </div>
+        <button class="nav-btn" onclick="nextSection()">Next →</button>
+    </section>
+
+    <section class="section" data-section="6">
+        <div class="message-text">
+            You have become someone <span class="highlight">important to me</span>, and I find myself looking forward to our conversations more than anything. 
+            You make my days lighter and brighter without even trying, and that is something I will always be grateful for:>
+        </div>
+        <button class="nav-btn" onclick="nextSection()">Next →</button>
+    </section>
+
+    <section class="section" data-section="7">
+        <div class="message-text">
+            I know I have already confessed what I feel, but on your birthday, I want to say it again with sincerity. 
+            What I feel for you is <span class="highlight">real</span>, and my intentions are pure. 
+            I am serious about you and what I want is not just something temporary.
+        </div>
+        <button class="nav-btn" onclick="nextSection()">Next →</button>
+    </section>
+
+    <section class="section" data-section="8">
+        <div class="message-text">
+            I want to know you more, to grow with you, and hopefully one day be with you not just in chats or games, 
+            but in <span class="highlight">real life</span>. 
+            I want to be someone who can support you, care for you, and stay by your side through everything.
+        </div>
+        <button class="nav-btn" onclick="nextSection()">Next →</button>
+    </section>
+
+    <section class="section" data-section="9">
+        <div style="font-size: 2.5em; color: #ff69b4; margin-bottom: 30px; text-shadow: 0 0 30px #ff69b4; animation: glow 2s ease-in-out infinite alternate;">
+            🎈 You deserve all the good things in this world 🎈
+        </div>
+        <div class="message-text" style="font-size: 1.3em;">
+            For now, I just want you to enjoy your day and feel how <span class="highlight">special you are</span>. 
+            I hope this year brings you closer to your dreams and fills your life with happiness. 
+            No matter what happens, I will always be here for you, cheering you on and appreciating you for who you are.
+        </div>
+        <div style="font-size: 3em; color: #ff1493; margin-top: 40px; text-shadow: 0 0 40px #ff1493; animation: glow 2s ease-in-out infinite alternate;">
+            Happy birthday again nathieee, and thank you for coming into my life<span style="font-size: 0.5em;">❤️</span>
+        </div>
+    </section>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="custom-cursor" id="cursor"></div>
+
+    <!-- MUSIC -->
+    <audio id="bgMusic" loop>
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+0/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+0/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+0/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSq+0=" type="audio/wav">
+    </audio>
+
+    <script>
+        // ===== SAME JAVASCRIPT AS BEFORE =====
+        let currentSection = 1;
+        const totalSections = 9;
+        const correctPassword = "HBD NATHIEE";
+        let musicPlaying = false;
+
+        function init() {
+            createStars();
+            createPetals();
+            initCursor();
+        }
+
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = star.style.height = (Math.random() * 3 + 1) + 'px';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        function createPetals() {
+            const petalsContainer = document.getElementById('petals');
+            for (let i = 0; i < 30; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.animationDelay = Math.random() * 15 + 's';
+                petal.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                petalsContainer.appendChild(petal);
+            }
+        }
+
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value.trim().toUpperCase();
+            if (input === correctPassword) {
+                document.querySelector('.password-screen').style.animation = 'fadeInUp 1s ease forwards';
+                setTimeout(() => {
+                    nextSection();
+                    document.getElementById('bgMusic').play().catch(() => {});
+                    toggleMusic(true);
+                }, 1000);
+            } else {
+                document.getElementById('passwordInput').style.borderColor = '#ff4444';
+                setTimeout(() => {
+                    document.getElementById('passwordInput').style.borderColor = 'rgba(255, 105, 180, 0.5)';
+                }, 1000);
+            }
+        }
+
+        function nextSection() {
+            const sections = document.querySelectorAll('.section');
+            sections[currentSection - 1].classList.remove('active');
+            if (currentSection < totalSections) {
+                currentSection++;
+                sections[currentSection - 1].classList.add('active');
+            }
+        }
+
+        function openEnvelope() {
+            const envelope = document.getElementById('envelope');
+            envelope.classList.add('open');
+            setTimeout(() => {
+                document.getElementById('nextBtn2').style.display = 'inline-block';
+            }, 1200);
+        }
+
+        function toggleMusic(forcePlay = false) {
+            const music = document.getElementById('bgMusic');
+            const control = document.getElementById('musicControl');
+            if (forcePlay || !musicPlaying) {
+                music.play().catch(() => {});
+                musicPlaying = true;
+                control.textContent = '⏸️';
+                control.classList.add('playing');
+            } else {
+                music.pause();
+                musicPlaying = false;
+                control.textContent = '▶️';
+                control.classList.remove('playing');
+            }
+        }
+
+        document.getElementById('musicControl').addEventListener('click', () => toggleMusic());
+
+        function initCursor() {
+            const cursor = document.getElementById('cursor');
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX - 10 + 'px';
+                cursor.style.top = e.clientY - 10 + 'px';
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && currentSection === 1) {
+                checkPassword();
+            }
+            if (e.key === 'ArrowRight' && currentSection < totalSections) {
+                nextSection();
+            }
+        });
+
+        document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
